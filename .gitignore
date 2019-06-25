@@ -4,9 +4,10 @@
 /public/js
 /public/css
 /public/img
-/resources/views/index.blade.php
+/resources/views
 /storage/*.key
 /vendor
+/.idea
 .env
 .phpunit.result.cache
 Homestead.json
