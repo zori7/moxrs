@@ -13,19 +13,12 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['middleware' => ['json.response']], function () {
+Route::post('login', 'AuthController@login');
+Route::post('register', 'AuthController@register');
 
-    Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->group(function () {
+    Route::post('logout', 'AuthController@logout');
+    Route::get('user', function (Request $request) {
         return $request->user();
     });
-
-    Route::post('/login', 'Api\AuthController@login')->name('login.api');
-    Route::post('/register', 'Api\AuthController@register')->name('register.api');
-
-
-    Route::middleware('auth:api')->group(function () {
-        Route::get('/logout', 'Api\AuthController@logout')->name('logout');
-    });
 });
-
-Route::get('/time', 'TimeController@index');
