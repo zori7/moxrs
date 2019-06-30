@@ -22,27 +22,33 @@ export default new Vuex.Store({
   },
   actions: {
     register ({ commit, state, dispatch }, credentials) {
-      axios.post('register', {
-        email: credentials.email,
-        name: credentials.name,
-        password: credentials.password,
-        password_confirmation: credentials.password_confirmation
-      }).then(res => {
-        let token = res.data.token
-        commit('setToken', token)
-        dispatch('getAuthUser')
-        window.axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+      return new Promise (resolve => {
+        axios.post('register', {
+          email: credentials.email,
+          name: credentials.name,
+          password: credentials.password,
+          password_confirmation: credentials.password_confirmation
+        }).then(res => {
+          let token = res.data.token
+          commit('setToken', token)
+          dispatch('getAuthUser')
+          window.axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+          resolve()
+        })
       })
     },
     login ({ commit, state, dispatch }, credentials) {
-      axios.post('login', {
-        email: credentials.email,
-        password: credentials.password
-      }).then(res => {
-        let token = res.data.token
-        commit('setToken', token)
-        window.axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-        dispatch('getAuthUser')
+      return new Promise (resolve => {
+        axios.post('login', {
+          email: credentials.email,
+          password: credentials.password
+        }).then(res => {
+          let token = res.data.token
+          commit('setToken', token)
+          window.axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+          dispatch('getAuthUser')
+          resolve()
+        })
       })
     },
     logout ({ commit }) {
@@ -54,6 +60,9 @@ export default new Vuex.Store({
     getAuthUser ({ commit }) {
       axios.get('user').then(res => {
         commit('setUser', res.data)
+      }).catch(e => {
+        commit('setUser', null)
+        commit('setToken', null)
       })
     }
   },

@@ -4,6 +4,8 @@ import store from './store'
 import Home from '@views/Home'
 import Register from '@views/Register'
 import Login from '@views/Login'
+import Logout from '@views/Logout'
+import Posts from '@views/Posts'
 
 Vue.use(Router)
 
@@ -22,6 +24,11 @@ const router = new Router({
             component: Login
         },
         {
+            path: '/logout',
+            name: 'logout',
+            component: Logout
+        },
+        {
             path: '/',
             name: 'home',
             component: Home,
@@ -29,6 +36,14 @@ const router = new Router({
                 requiresAuth: true
             }
         },
+        {
+            path: '/posts',
+            name: 'posts',
+            component: Posts,
+            meta: {
+                requiresAuth: true
+            }
+        }
     ]
 })
 

@@ -29,7 +29,9 @@
                 this.$store.dispatch('login', {
                     email: this.email,
                     password: this.password
-                });
+                }).then(() => {
+                    this.$router.push({ name: 'home' })
+                })
             }
         }
     }

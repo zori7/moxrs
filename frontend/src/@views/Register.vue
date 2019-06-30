@@ -39,6 +39,8 @@
                     name: this.name,
                     password: this.password,
                     password_confirmation: this.password_confirmation
+                }).then(() => {
+                    this.$router.push({ name: 'home' })
                 })
             }
         }
