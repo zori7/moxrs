@@ -25,3 +25,7 @@ $factory->define(User::class, function (Faker $faker) {
         'remember_token' => Str::random(10),
     ];
 });
+
+$factory->afterCreating(App\User::class, function ($user, $faker) {
+    $user->posts()->saveMany(factory(App\Post::class, 3)->make());
+});

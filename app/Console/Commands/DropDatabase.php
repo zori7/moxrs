@@ -40,6 +40,7 @@ class DropDatabase extends Command
     {
         if (!$this->confirm('Warning! This command will delete all your data'))
             return;
-        Artisan::call('migrate:fresh');
+        Artisan::call('migrate:fresh --seed');
+        Artisan::call('passport:install');
     }
 }
