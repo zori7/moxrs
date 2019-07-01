@@ -4,6 +4,7 @@
 /public/js
 /public/css
 /public/img
+/public/fonts
 /resources/views
 /.idea
 /resources/views/index.blade.php
