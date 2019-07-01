@@ -9,7 +9,8 @@
         <template v-if="!loading">
             <el-card class="box-card" v-for="post in posts">
                 <div slot="header" class="clearfix">
-                    <span>{{ post.title }}</span>
+                    <el-image  :src="post.image" fit="cover" style="width: 400px; height: 200px" />
+                    <h2>{{ post.title }}</h2>
                 </div>
                 <div>
                     {{ post.body }}
