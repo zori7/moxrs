@@ -17,6 +17,8 @@ Vue.mixin({
     }
 })
 
+Vue.prototype.$eventHub = new Vue()
+
 window.axios.defaults.baseURL = process.env.VUE_APP_URL + '/api'
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 

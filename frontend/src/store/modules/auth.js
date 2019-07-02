@@ -34,7 +34,7 @@ const actions = {
         })
     },
     login ({ commit, state, dispatch }, credentials) {
-        return new Promise (resolve => {
+        return new Promise ((resolve, reject) => {
             axios.post('login', {
                 email: credentials.email,
                 password: credentials.password
@@ -44,7 +44,7 @@ const actions = {
                 window.axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
                 dispatch('getAuthUser')
                 resolve()
-            })
+            }).catch(e => reject(e))
         })
     },
     logout ({ commit }) {

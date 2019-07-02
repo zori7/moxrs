@@ -8,6 +8,9 @@
             <el-form-item label="Password">
                 <el-input type="password" v-model="password"></el-input>
             </el-form-item>
+            <el-form-item v-if="error">
+                <span>{{ error }}</span>
+            </el-form-item>
             <el-button type="primary" @click="login">
                 Login
             </el-button>
@@ -21,7 +24,8 @@
         data () {
             return {
                 email: '',
-                password: ''
+                password: '',
+                error: null
             }
         },
         methods: {
@@ -31,7 +35,7 @@
                     password: this.password
                 }).then(() => {
                     this.$router.push({ name: 'home' })
-                })
+                }).catch(e => this.error = e.response.data)
             }
         }
     }
