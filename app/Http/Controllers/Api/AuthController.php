@@ -55,7 +55,6 @@ class AuthController extends Controller
     }
 
     public function logout (Request $request) {
-        sleep(1);
         $request->user()->token()->revoke();
 //        $request->user()->tokens()->each(function  ($t) {
 //            $t->revoke();

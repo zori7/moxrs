@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Post;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Mail\UserRegistered;
+use Illuminate\Support\Facades\Mail;
 
 class PostsController extends Controller
 {
