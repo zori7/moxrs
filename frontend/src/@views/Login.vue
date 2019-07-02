@@ -26,7 +26,7 @@
         },
         methods: {
             login() {
-                this.$store.dispatch('login', {
+                this.$store.dispatch('auth/login', {
                     email: this.email,
                     password: this.password
                 }).then(() => {

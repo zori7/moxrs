@@ -34,7 +34,7 @@
         },
         methods: {
             register () {
-                this.$store.dispatch('register', {
+                this.$store.dispatch('auth/register', {
                     email: this.email,
                     name: this.name,
                     password: this.password,

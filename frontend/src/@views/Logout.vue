@@ -10,9 +10,11 @@
     export default {
         name: "Logout",
         mounted () {
-            this.$store.dispatch('logout').then(() => {
-                this.$router.push({ name: 'login' })
-            })
+            setTimeout(() => {
+                this.$store.dispatch('auth/logout').then(() => {
+                    this.$router.push({ name: 'login' })
+                })
+            }, 1000)
         }
     }
 </script>

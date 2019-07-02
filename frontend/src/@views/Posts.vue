@@ -11,6 +11,7 @@
                 <div slot="header" class="clearfix">
                     <el-image  :src="post.image" fit="cover" style="width: 400px; height: 200px" />
                     <h2>{{ post.title }}</h2>
+                    <span>By {{ post.user.name }}, {{ post.created_at | date }}</span>
                 </div>
                 <div>
                     {{ post.body }}

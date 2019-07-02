@@ -15,8 +15,8 @@ class PostsController extends Controller
      */
     public function index(Request $request)
     {
-        $posts = cache()->rememberForever('posts.' . $request->page, function () {
-            return Post::paginate(10);
+        $posts = cache()->tags('posts')->rememberForever('posts.' . $request->page, function () {
+            return Post::with('user')->paginate(10);
         });
         return response()->json($posts);
     }
