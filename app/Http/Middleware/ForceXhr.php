@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class ForceJsonResponse
+class ForceXhr
 {
     /**
      * Handle an incoming request.
@@ -15,8 +15,8 @@ class ForceJsonResponse
      */
     public function handle($request, Closure $next)
     {
-        info('json middleware');
-        $request->headers->set('Accept', 'application/json');
+        if (!$request->ajax())
+            abort(403);
         return $next($request);
     }
 }
