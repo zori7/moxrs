@@ -11,7 +11,7 @@
             <el-form-item v-if="error">
                 <span>{{ error }}</span>
             </el-form-item>
-            <el-button type="primary" @click="login">
+            <el-button type="primary" @click="attempt">
                 Login
             </el-button>
         </el-form>
@@ -19,6 +19,7 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex'
     export default {
         name: "Login",
         data () {
@@ -29,13 +30,11 @@
             }
         },
         methods: {
-            login() {
-                this.$store.dispatch('auth/login', {
-                    email: this.email,
-                    password: this.password
-                }).then(() => {
-                    this.$router.push({ name: 'home' })
-                }).catch(e => this.error = e.response.data)
+            ...mapActions('auth', ['login']),
+            attempt () {
+                this.login({ email: this.email, password: this.password })
+                    .then(res => { this.$router.push({ name: 'home' }) })
+                    .catch(e => { this.error = e.response.data })
             }
         }
     }
