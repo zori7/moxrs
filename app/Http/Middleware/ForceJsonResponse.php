@@ -15,7 +15,6 @@ class ForceJsonResponse
      */
     public function handle($request, Closure $next)
     {
-        info('json middleware');
         $request->headers->set('Accept', 'application/json');
         return $next($request);
     }
