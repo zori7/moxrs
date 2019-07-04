@@ -11,4 +11,10 @@
 |
 */
 
+Route::get('/routes', function () {
+    \Illuminate\Support\Facades\Artisan::call('route:list --json');
+    $output = json_decode(\Illuminate\Support\Facades\Artisan::output());
+    return view('admin.routes', ['data' => $output]);
+});
+
 Route::get('/{any}', 'SpaController@index')->where('any', '.*');

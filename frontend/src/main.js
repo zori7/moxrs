@@ -3,8 +3,11 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import ElementUI from 'element-ui'
-import moment from 'moment'
+window.moment = require('moment')
 import 'element-ui/lib/theme-chalk/index.css'
+import EchoClient from 'laravel-echo'
+window.io = require('socket.io-client')
+
 Vue.use(ElementUI)
 window.axios = require('axios')
 Vue.config.productionTip = false
@@ -12,7 +15,7 @@ Vue.config.productionTip = false
 Vue.mixin({
     filters: {
         date (val) {
-            return moment(val).isSame(moment(), 'day') ? moment(val).fromNow() : moment(val).format('Do MMMM YYYY \- H:mm')
+            return moment(val).isSame(moment(), 'minute') ? moment(val).fromNow() : moment(val).format('Do MMMM YYYY \- H:mm')
         }
     }
 })
@@ -31,6 +34,13 @@ window.axios.interceptors.request.use(config => {
         config.headers['Authorization'] = `Bearer ${token}`
     }
     return config
+})
+
+let hostname = process.env.VUE_APP_URL.split('/')[2]
+
+window.Echo = new EchoClient({
+    broadcaster: 'socket.io',
+    host: hostname + ':6001'
 })
 
 const app = new Vue({

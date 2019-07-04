@@ -38,7 +38,8 @@ return [
             'X-Auth-Token',
             'Origin',
             'Authorization',
-            'Accept'
+            'Accept',
+            'X-Socket-ID'
         ],
 
         'expose_headers' => [

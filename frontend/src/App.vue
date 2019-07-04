@@ -4,6 +4,7 @@
       <el-menu :default-active="$route.path" :router="true" class="el-menu-demo" mode="horizontal">
         <el-menu-item :route="{ name: 'home' }" index="home">Home</el-menu-item>
         <el-menu-item :route="{ name: 'posts' }" index="posts">Posts</el-menu-item>
+        <el-menu-item :route="{ name: 'global-chat' }" index="global-chat">Global chat</el-menu-item>
         <el-submenu index="1" v-if="$store.getters['auth/loggedIn']">
           <template slot="title">
             <span v-if="$store.state.auth.user">
@@ -30,6 +31,9 @@
 </script>
 
 <style lang="scss">
+  * {
+    box-sizing: border-box;
+  }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

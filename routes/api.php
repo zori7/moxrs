@@ -25,6 +25,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('user', 'AuthController@user');
 
     Route::apiResources([
-        'posts' => 'PostsController'
+        'posts' => 'PostsController',
+        'global-messages' => 'GlobalMessagesController'
     ]);
 });

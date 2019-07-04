@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import store from './store'
-import Home from '@views/Home'
-import Register from '@views/Register'
-import Login from '@views/Login'
-import Logout from '@views/Logout'
-import Posts from '@views/Posts'
+const files = require.context('./@views', false, /\.vue$/)
+let components = [];
+files.keys().map(key => {
+    let name = key.split('/').pop().split('.').shift();
+    components[name] = files(key).default;
+});
 
 Vue.use(Router)
 
@@ -16,22 +17,22 @@ const router = new Router({
         {
             path: '/register',
             name: 'register',
-            component: Register
+            component: components['Register']
         },
         {
             path: '/login',
             name: 'login',
-            component: Login
+            component: components['Login']
         },
         {
             path: '/logout',
             name: 'logout',
-            component: Logout
+            component: components['Logout']
         },
         {
             path: '/',
             name: 'home',
-            component: Home,
+            component: components['Home'],
             meta: {
                 requiresAuth: true
             }
@@ -39,7 +40,15 @@ const router = new Router({
         {
             path: '/posts',
             name: 'posts',
-            component: Posts,
+            component: components['Posts'],
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/global-chat',
+            name: 'global-chat',
+            component: components['GlobalChat'],
             meta: {
                 requiresAuth: true
             }
