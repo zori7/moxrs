@@ -25,6 +25,11 @@
                 messages: []
             }
         },
+        computed: {
+            channel () {
+                return Echo.channel('global-chat')
+            }
+        },
         watch: {
             'messages.length': {
                 handler () {
@@ -33,8 +38,7 @@
             }
         },
         mounted () {
-            Echo
-                .channel('moxrs_database_global-chat')
+            this.channel
                 .listen('GlobalMessage', ({ message }) => {
                     this.messages.push(message)
                     let chat = document.getElementsByClassName('chat')[0]
