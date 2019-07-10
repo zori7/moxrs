@@ -3,10 +3,12 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import ElementUI from 'element-ui'
-window.moment = require('moment')
+window.moment = require('moment-timezone')
 import 'element-ui/lib/theme-chalk/index.css'
 import EchoClient from 'laravel-echo'
+window.marked = require('marked')
 window.io = require('socket.io-client')
+window._ = require('lodash')
 
 Vue.use(ElementUI)
 window.axios = require('axios')
@@ -15,8 +17,39 @@ Vue.config.productionTip = false
 Vue.mixin({
     filters: {
         date (val) {
-            return moment(val).isSame(moment(), 'minute') ? moment(val).fromNow() : moment(val).format('Do MMMM YYYY \- H:mm')
+            let tz = null;
+            if (localStorage.hasOwnProperty('vuex')) {
+                let vuex = JSON.parse(localStorage.vuex)
+                if (vuex.hasOwnProperty('tz'))
+                    tz = vuex.tz
+            }
+            return moment(val).isSame(moment(), 'minute') ? moment(val).tz(tz).fromNow() : moment(val).tz(tz).format('Do MMMM YYYY \- H:mm')
         }
+    }
+})
+
+Vue.component('md', {
+    props: {
+        t: {
+            required: true,
+            type: String
+        }
+    },
+    data () {
+        return {
+            marked: ''
+        }
+    },
+    watch: {
+        t (val) {
+            this.md(val)
+        }
+    },
+    template: '<span v-html="marked"></span>',
+    methods: {
+        md: _.debounce(function (val) {
+            this.marked = marked(val)
+        }, 500)
     }
 })
 

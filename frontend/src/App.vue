@@ -26,7 +26,11 @@
 
 <script>
   export default {
-    name: "App"
+    name: "App",
+    mounted () {
+      if (!this.$store.state.tz)
+        this.$store.commit('setTz', moment.tz.guess())
+    }
   }
 </script>
 

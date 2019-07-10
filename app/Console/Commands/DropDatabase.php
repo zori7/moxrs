@@ -42,5 +42,6 @@ class DropDatabase extends Command
             return;
         Artisan::call('migrate:fresh --seed');
         Artisan::call('passport:install');
+        cache()->tags('posts')->flush();
     }
 }
